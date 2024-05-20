@@ -1,14 +1,14 @@
-# Payment gateway server
+# Identity Graph implementation 
 
-Riskified payment gateway
-
+Identity Graph implementation
 ## Local Installation
 
-First, you need to have Node.js installed.
+First, you need to have `nvm` installed.
 Build the server, at the main folder
 
 
 ```bash
+nvm use
 npm ci
 npm run start:dev
 ```
