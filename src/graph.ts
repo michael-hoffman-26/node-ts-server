@@ -101,12 +101,14 @@ class Graph {
     Nodes: Map<string, NodeA> ;
     // type: <key/source, set of targets>
     Edges: Map<string, Map<string, Edge[]>>;
+    // Edge: Map<>
+    // Map<sourceId: <typeId, <Map<target, Edge>>>
     /**
      * TODO:
      * Instead of array of Edge, it should be a unique collection of edges, without duplicate instances
      * */
 
-    constructor(Nodes: Map<string, NodeA>, edges: Map<string, Map<string, Edge[]>>) {
+    constructor(Nodes: Map<string, NodeA>, edges: Map<string, Map<string, Edge[]>>, client: unknown) {
         this.Nodes = Nodes;
         this.Edges = edges;
     }
@@ -117,6 +119,7 @@ class Graph {
 
     getNodeAById(id: string): NodeA | undefined {
         return this.Nodes.get(id)
+        return this.client.GetNode(id)
     }
 
     getEdgeById(id: string) {
@@ -161,6 +164,10 @@ class Graph {
          * TODO:
          * Instead of array of Edge, it should be a unique collection of edges, without duplicate instances
          * */
+    }
+
+    getNodeEdges(nodeId: string): Edge[]{
+
     }
 
     getEdgesByTypeAndSource(type: string, sourceId: string): Edge[] {
