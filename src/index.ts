@@ -7,17 +7,25 @@ export interface Item {
 }
 
 const AllItems = new Map<string, Item>
-AllItems.set('bamba', {name: 'bamba', price: 2})
+AllItems.set('Bamba', {name: 'Bamba', price: 2})
+AllItems.set('Bread', {name: 'Bread', price: 12})
 
 export interface Discount {
-    condition: string
-    action: string
+    doDiscount: (itemsNum: number) => number,
+    undoDiscount?: (itemsNum: number) => number,
 }
 
 const AllDiscounts = new Map<string, Discount>
-AllDiscounts.set('bamba', {
-    condition: 'have3Bamba',
-    action: 'AddOneForDree'
+AllDiscounts.set('Bread', {
+    doDiscount: (itemsNum) => {
+        if (itemsNum > 0){
+            const isEven = itemsNum % 2
+            if (isEven === 0){
+                return -4
+            }
+        }
+        return 0
+    },
 })
 
 class Kupa {
@@ -49,8 +57,18 @@ class Kupa {
 
      private doDiscount(item: string){
          const discount = AllDiscounts.get(item)
-         if (discount?.condition()){
-             discount?.action()
+         if (discount){
+             const discountAmount = discount.doDiscount(this.itemsLists.get(item) || 0)
+             this.total = this.total + discountAmount
          }
      }
 }
+
+
+const kupa = new Kupa()
+kupa.addItem('Bread')
+kupa.addItem('Bread')
+kupa.addItem('Bread')
+kupa.addItem('Bread')
+kupa.addItem('Bamba')
+console.log(kupa.get_total)
