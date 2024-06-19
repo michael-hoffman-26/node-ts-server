@@ -54,3 +54,25 @@ const replaceNegatives = (nums: number[]): void => {
         }
     }
 }
+
+export function longestCommonPrefix(strs: string[]): string {
+    let result = ''
+
+    const copyStrs  = strs.map(word => word.split(''))
+    for (let i = 0; i < strs[0].length; i++) {
+        let results = true
+        for (let j = 0; j < strs.length - 1; j++) {
+            results = results && copyStrs[j][i] === copyStrs[j + 1][i]
+            if (!results){
+                break
+            }
+        }
+        if (results){
+            result += copyStrs[0][i]
+        } else {
+            break
+        }
+    }
+
+    return result
+};

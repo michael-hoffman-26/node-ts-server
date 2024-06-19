@@ -1,10 +1,25 @@
 import * as process from "process";
 
 
-console.log(`calling ${maxProfit([2,1,2,10,1])}`)
+// console.log(`calling ${maxProfit([2,1,2,10,1])}`)
 
+// dry run
+//**
 
-function maxProfit(prices: number[]): number {
+/*
+* dry run
+* iteration 0:
+* profit: 0, buy=2, sell=1
+*
+* iteration 1:
+* profit: 0, buy=2, sell=1
+* profit: 1, buy=1, sell=2
+* profit: 9, buy=1, sell=10
+* */
+// profit = 0
+// **/
+
+export function maxProfit(prices: number[]): number {
   if (prices.length === 0){
     return 0
   }
