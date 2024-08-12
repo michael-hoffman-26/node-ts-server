@@ -1,42 +1,44 @@
-// console.log('Hello World')
+import { alpheBetMapping } from "./consts";
+
+function sortAlphaBet() {
+  return (a, b) => {
+    const wordALetters = a.split("");
+    const wordBLetters = b.split("");
+
+    const minLenght = Math.min(wordALetters.length, wordBLetters.length);
+    let index = 0;
+    while (index < minLenght - 1) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      const aLetterVal = alpheBetMapping.get(wordALetters[index].toLowerCase()) || 0
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      const bLetterVal = alpheBetMapping.get(wordBLetters[index].toLowerCase()) || 0
+      if (aLetterVal < bLetterVal) {
+        return -1;
+      } else if (aLetterVal > bLetterVal) {
+        return 1;
+      }
+      index++;
+    }
+
+    if (wordALetters.length < wordBLetters.length) {
+      return -1;
+    } else if (wordALetters.length > wordBLetters.length) {
+      return 1;
+    }
+    return 0;
+  };
+}
+function removePunctuation(str) {
+  return str.split('').filter(char => {
+      return /[a-zA-Z0-9 ]/.test(char);
+  }).join('');
+}
+
+// Decided to directly set the input value in the code
+const input = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua`
+
+const inputWitoutPunctuation = removePunctuation(input)
+const sortedWords = inputWitoutPunctuation.split(" ").sort(sortAlphaBet())
 
 
-// Question 3:
-// A debounced function postpones its execution by t milliseconds each time it is invoked.
-// If called again during this interval, the previous invocation is discarded.
-
-// user typ M
-// do timer that after t MS will call the function.
-// user typ I, check if previous timer didnt finish, if so reset the t MS. if not, also reset the t MS.
-
-//
-// function debounce(func, t) {
-//     // Implement your debounce function here
-//     // const check = setInterval()
-//     if (timeoutPoint) {
-//
-//     }
-//     const timeoutPoint = setTimeout(func, t)
-//     // clearInterval()
-//     // intervalPointer.
-// }
-
-const debounce = (mainFunction, delay) => {
-    // Declare a variable called 'timer' to store the timer ID
-    let timer;
-
-    // Return an anonymous function that takes in any number of arguments
-    return function (...args) {
-        // Clear the previous timer to prevent the execution of 'mainFunction'
-        clearTimeout(timer);
-
-        // Set a new timer that will execute 'mainFunction' after the specified delay
-        timer = setTimeout(() => {
-            mainFunction(...args);
-        }, delay);
-    };
-};
-
-
-debounce(console.log, 10)(3333)
-debounce(console.log, 10)(3333)
+console.log(sortedWords.join(" "));
