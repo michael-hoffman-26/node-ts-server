@@ -1,42 +1,52 @@
-// console.log('Hello World')
+import { readFileLineByLine } from "./utils/load-file";
+import { fetchDataFromGithub } from "./service/github";
+import { formatGithubUrl } from "./utils/format-github-url";
 
 
-// Question 3:
-// A debounced function postpones its execution by t milliseconds each time it is invoked.
-// If called again during this interval, the previous invocation is discarded.
+const QUERIES_FILE_PATH = './src/resources/github_queries.txt';
 
-// user typ M
-// do timer that after t MS will call the function.
-// user typ I, check if previous timer didnt finish, if so reset the t MS. if not, also reset the t MS.
-
-//
-// function debounce(func, t) {
-//     // Implement your debounce function here
-//     // const check = setInterval()
-//     if (timeoutPoint) {
-//
-//     }
-//     const timeoutPoint = setTimeout(func, t)
-//     // clearInterval()
-//     // intervalPointer.
-// }
-
-const debounce = (mainFunction, delay) => {
-    // Declare a variable called 'timer' to store the timer ID
-    let timer;
-
-    // Return an anonymous function that takes in any number of arguments
-    return function (...args) {
-        // Clear the previous timer to prevent the execution of 'mainFunction'
-        clearTimeout(timer);
-
-        // Set a new timer that will execute 'mainFunction' after the specified delay
-        timer = setTimeout(() => {
-            mainFunction(...args);
-        }, delay);
-    };
-};
+(async () => {
+    const urls = await readFileLineByLine(QUERIES_FILE_PATH)
+    // console.log(lines)
+    
+    // const checkLine0 = lines[0]
+    // const line0 = new URL(checkLine0);
+    // const baseUrl = `${line0.origin}${line0.pathname}`;
 
 
-debounce(console.log, 10)(3333)
-debounce(console.log, 10)(3333)
+    // const queryParam = line0.searchParams.get('q') || '';
+    // const encodedQuery = encodeURIComponent(queryParam);
+
+    // const requestUrl = `${baseUrl}?q=${encodedQuery}`;
+
+    
+    // const res = await fetchDataFromGithub(requestUrl)
+
+    for (const url of urls) {
+        const formattedUrl = formatGithubUrl(url)
+        const res = await fetchDataFromGithub(formattedUrl);
+
+        console.log(res?.data?.total_count);
+        //TODO
+        /**
+         * Handle pagination.
+         * in order to print all data.
+         * 
+         * add to the queries pagintains
+         * and fetch all data using the total_count.
+         * 
+         */
+        console.log(res?.data?.items);
+        // TODO
+        /***
+         * Handle parallelism
+         * to iterate over the queries file with iterator
+         * and fetch each time X requests.
+         * 
+         * after that handle the requests using Promise.allSettled
+         * 
+         */
+    }
+})();
+
+
