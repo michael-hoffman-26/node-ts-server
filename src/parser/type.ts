@@ -20,4 +20,3 @@ export interface Person {
     Name: Name;
     JobExperience?: JobExperience[];
 }
-

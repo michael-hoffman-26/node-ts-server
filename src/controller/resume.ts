@@ -17,8 +17,11 @@ export class ResumeController {
             const textData = this.textParser.parse(enrichedData);
 
             // for now, we are only printing the data for simplicity
-            console.log("JSON Data:", jsonData);
-            console.log("Text Data:", textData);
+            console.log("JSON Data:")
+            console.log(jsonData);
+            
+            console.log("Text Data:")
+            console.log(textData);
 
             enrichedData = await this.resumeService.getEnrichedNextData();
         }

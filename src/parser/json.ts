@@ -15,9 +15,9 @@ export class JsonParser implements IParser<object> {
             for (let index = 0; index < rawData?.experience?.length; index++) {
                 const currentExpe = rawData?.experience[index]
                 person.JobExperience[index] = {
-                    EndDate: currentExpe?.end_date,
-                    StartDate: currentExpe?.start_date,
                     Role: currentExpe?.title,
+                    StartDate: currentExpe?.start_date,
+                    EndDate: currentExpe?.end_date,
                     Location: currentExpe?.location?.short_display_address,
                 }
                 if (currentExpe?.gap_in_days) {

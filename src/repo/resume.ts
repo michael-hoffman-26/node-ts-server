@@ -1,25 +1,9 @@
-export class DataSource {
-    constructor(private url: string) { }
-
-    async loadData(): Promise<any[]> {
-        try {
-            const response = await fetch(this.url);
-            if (!response.ok) {
-                throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
-            }
-            return await response.json();
-        } catch (error: any) {
-            throw new Error("Error loading data: " + error.message);
-        }
-    }
-}
-
 export class ResumeRepo {
     private static instance: ResumeRepo;
     private dataQueue: any[] = [];
     private index = 0;
 
-    private constructor(private url: string) { 
+    private constructor(private url: string) {
         this.url = url
     }
 
@@ -38,16 +22,20 @@ export class ResumeRepo {
      */
     async loadData(): Promise<void> {
         if (this.dataQueue.length === 0) {
-            const response = await fetch(this.url);
-            const data = await response.json();
-            this.dataQueue = Array.isArray(data) ? data : [data];
+            try {
+                const response = await fetch(this.url);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
+                }
+                const data = await response.json();
+                this.dataQueue = Array.isArray(data) ? data : [data];
+            } catch (error: any) {
+                throw new Error("Error loading data: " + error.message);
+            }
         }
     }
 
     getNext(): any | null {
-        if (this.index < this.dataQueue.length) {
-            return this.dataQueue[this.index++];
-        }
-        return null;
+        return this.dataQueue.length > 0 ? this.dataQueue.shift() : null;
     }
 }
