@@ -1,8 +1,7 @@
 // import findRepeatedSequences from './quetions/dnaSubsets'
 
-import { findRepeatedSequences } from "./quetions/dnaSubsets"
+import { findMin } from "./quetions/find-min-binary-search"
 
-const dna = "AAAAACCCCCAAAAACCCCCC"
-const k = 8
+const numbers = [1,2,3,4,5]
 
-console.log(findRepeatedSequences(dna, k))
+console.log(findMin(numbers))

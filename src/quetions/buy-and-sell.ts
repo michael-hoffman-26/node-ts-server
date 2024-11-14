@@ -37,3 +37,42 @@ export function maxProfit(prices: number[]): number {
 
   return profit
 }
+
+function bestBuyWithHistoryRAte(rates: number[]) {
+  let bestBuy = 0
+  let bestSell = 1
+  let maxProfit = 0
+
+  const bestPoints = {
+    bestSell: 0,
+    bestBuy: 0
+  }
+
+  for (let i = 0; i < rates.length; i++) {
+    if (maxProfit < rates[bestSell] - rates[bestBuy]) {
+      maxProfit = rates[bestSell] - rates[bestBuy]
+
+      bestPoints.bestSell = bestSell
+      bestPoints.bestBuy = bestBuy
+    } else {
+      // dont do nothing
+    }
+
+    if (rates[bestSell] > rates[bestBuy]) {
+      bestSell++
+    } else { // price going down
+      bestBuy = bestSell
+      bestSell++
+    }
+  }
+
+
+  return {
+    maxProfit,
+    ...bestPoints
+  }
+
+}
+
+const rateInput = [50, 2, 3, 4, 100, 2, 200]
+console.log(bestBuyWithHistoryRAte(rateInput));
