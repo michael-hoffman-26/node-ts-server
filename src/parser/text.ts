@@ -22,11 +22,17 @@ export class TextParser implements IParser<string> {
                 Role: currentExpe?.title,
                 Location: currentExpe?.location?.short_display_address
             }
+            if (currentExpe?.gap_in_days) {
+                person.JobExperience[index].GapInDays = currentExpe.gap_in_days
+            }
         }
         for (let index = 0; index < person.JobExperience.length; index++) {
             const currentExp = person.JobExperience[index];
             
             text += `Worked as: ${currentExp.Role}, From ${currentExp.StartDate} To ${currentExp.EndDate} in ${currentExp.Location}\n`;
+            if (currentExp?.GapInDays) {
+                text += `Gap in CV for ${currentExp?.GapInDays}\n`
+            }
         }
 
         return text
