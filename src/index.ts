@@ -1,7 +1,5 @@
 // import findRepeatedSequences from './quetions/dnaSubsets'
 
-import { findMin } from "./quetions/find-min-binary-search"
+import { PromiseQueue, testQueue } from "./quetions/test-promise-qeueu";
 
-const numbers = [1,2,3,4,5]
-
-console.log(findMin(numbers))
+testQueue(new PromiseQueue());
