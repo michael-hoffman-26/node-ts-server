@@ -1,5 +1,8 @@
-// import findRepeatedSequences from './quetions/dnaSubsets'
+import { MyFile, MyFolder } from "./source/File-system2"
 
-import { PromiseQueue, testQueue } from "./quetions/test-promise-qeueu";
-
-testQueue(new PromiseQueue());
+const root = new MyFolder('root')
+root.ls()
+const fileExample = new MyFile('CV', "michael")
+root.addChild(fileExample)
+root.addChild(fileExample)
+root.ls()
