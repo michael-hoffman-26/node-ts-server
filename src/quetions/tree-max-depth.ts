@@ -14,7 +14,7 @@
 
 // console.log(`calling removeDuplicate:  ${minDepth(new TreeNode())}`)
 
-import {TreeNode} from "./tree-min-depth";
+import { TreeNode } from "./tree-min-depth";
 
 // function maxDepthRec(root: TreeNode | null): number {
 //     if (root === null){

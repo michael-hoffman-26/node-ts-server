@@ -1,5 +1,6 @@
 /**
- * The original task is to implement a PromiseQueue that executes promises sequentially (one after another). The following code has a bug, the promises are not running sequentially as expected.
+ * The original task is to implement a PromiseQueue that executes promises sequentially (one after another).
+ * The following code has a bug, the promises are not running sequentially as expected.
  */
 
 function sleep(ms: number) {
